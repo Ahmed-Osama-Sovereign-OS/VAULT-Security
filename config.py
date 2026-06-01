@@ -6,14 +6,11 @@ class Config:
     AUTHOR = "Ahmed Osama"
     VERSION = "1.0.0"
     
-    # مسارات النظام (يعمل على ويندوز حصراً)
     BASE_DIR = os.getcwd()
     VAULT_DIR = os.path.join(BASE_DIR, "secure_vault")
-    
-    # إعدادات التشفير (معيار AES-256)
     KEY_FILE = "vault.key"
+    LOG_FILE = ".vault_log.txt" 
     
-    # التحقق من أن الجهاز ويندوز
     if platform.system() != "Windows":
         raise OSError("This system is designed for Windows architecture only.")
         
