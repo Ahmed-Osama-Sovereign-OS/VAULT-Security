@@ -1,6 +1,8 @@
+
 import os
 from cryptography.fernet import Fernet
 from config import Config
+from logger import log_action
 
 class VaultManager:
     def __init__(self):
@@ -24,6 +26,7 @@ class VaultManager:
         file_name = os.path.basename(file_path)
         with open(os.path.join(Config.VAULT_DIR, f"{file_name}.locked"), "wb") as f:
             f.write(encrypted_data)
+        log_action("ENCRYPT", f"File locked: {file_name}")
 
     def decrypt_file(self, locked_file_name, output_name):
         locked_path = os.path.join(Config.VAULT_DIR, locked_file_name)
@@ -32,3 +35,4 @@ class VaultManager:
         decrypted_data = self.cipher.decrypt(data)
         with open(output_name, "wb") as f:
             f.write(decrypted_data)
+        log_action("DECRYPT", f"File unlocked: {locked_file_name}")
